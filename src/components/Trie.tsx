@@ -18,11 +18,11 @@ export const TrieVisualizer = () => {
     const [trie] = useState(() => new Trie());
     const [inputWord, setInputWord] = useState<string>("");
     const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
-    const [countNodes, setCountNodes] = useState<number>(0); // we use this to trigger re - renders
+    const [_countNodes, setCountNodes] = useState<number>(0); // we use this to trigger re - renders
 
     const [animatingPath, setAnimatingPath] = useState<string[]>([]); // node IDs being animated
     const [activePath, setActivePath] = useState<string[]>([]);       // green path
-    const [animationType, setAnimationType] = useState<'insert' | 'search' | 'delete' | null>(null);
+    const [_animationType, setAnimationType] = useState<'insert' | 'search' | 'delete' | null>(null);
 
     const [completeWords, setCompleteWords] = useState<Set<string>>(new Set());
 
