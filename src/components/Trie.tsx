@@ -15,7 +15,14 @@ type TrieNodeData = {
 export const TrieVisualizer = () => {
 
     // state
-    const [trie] = useState(() => new Trie());
+    const [trie] = useState(() => {
+        const newTrie = new Trie();
+
+        const starterWords = ["she", "sells", "seashells", "by", "the", "seashore"]
+        starterWords.forEach(word => newTrie.insert(word));
+        return newTrie;
+    });
+
     const [inputWord, setInputWord] = useState<string>("");
     const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
     const [_countNodes, setCountNodes] = useState<number>(0); // we use this to trigger re - renders
@@ -24,7 +31,7 @@ export const TrieVisualizer = () => {
     const [activePath, setActivePath] = useState<string[]>([]);       // green path
     const [_animationType, setAnimationType] = useState<'insert' | 'search' | 'delete' | null>(null);
 
-    const [completeWords, setCompleteWords] = useState<Set<string>>(new Set());
+    const [completeWords, setCompleteWords] = useState<Set<string>>(new Set(["she", "sells", "seashells", "by", "the", "seashore"]));
 
     useEffect(() => {
         if (activePath.length > 0) {
@@ -369,6 +376,20 @@ export const TrieVisualizer = () => {
         setInputWord("");
     };
 
+    const handleReset = () => {
+        const allWords = Array.from(completeWords);
+        allWords.forEach(word => {
+            trie.delete(word);
+        });
+
+        setCompleteWords(new Set());
+        setActivePath([]);
+        setAnimatingPath([]);
+        setInputWord("");
+        setCountNodes(0);
+        setFeedbackMessage("Trie has been reset!");
+    };
+
     const buildPathForward = (word: string): string[] => {
         const path: string[] = ['root'];
         let currentPath = 'root';
@@ -506,6 +527,7 @@ export const TrieVisualizer = () => {
                     <button onClick={() => handleSearch('word')}>Search Word</button>
                     <button onClick={() => handleSearch('prefix')}>Search prefix</button>
                     <button onClick={() => handleDelete()}>Delete Word</button>
+                    <button onClick={() => handleReset()}>Reset</button>
                 </div>
             </div>
 
