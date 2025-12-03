@@ -24,6 +24,9 @@ export const TrieVisualizer = () => {
     });
 
     const [inputWord, setInputWord] = useState<string>("");
+    const [prefixInput, setPrefixInput] = useState<string>("");
+    const [searchInput, setSearchInput] = useState<string>("");
+    const [deleteInput, setDeleteInput] = useState<string>("");
     const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
     const [_countNodes, setCountNodes] = useState<number>(0); // we use this to trigger re - renders
 
@@ -32,6 +35,7 @@ export const TrieVisualizer = () => {
     const [_animationType, setAnimationType] = useState<'insert' | 'search' | 'delete' | null>(null);
 
     const [completeWords, setCompleteWords] = useState<Set<string>>(new Set(["she", "sells", "seashells", "by", "the", "seashore"]));
+    const [prefixMatches, setPrefixMatches] = useState<string[]>([]);
 
     useEffect(() => {
         if (activePath.length > 0) {
@@ -42,6 +46,17 @@ export const TrieVisualizer = () => {
             return () => clearTimeout(timer);
         }
     }, [activePath]);
+
+    useEffect(() => {
+        if (prefixInput.trim()) {
+            const matches = Array.from(completeWords).filter(word =>
+                word.startsWith(prefixInput.trim().toLowerCase())
+            );
+            setPrefixMatches(matches);
+        } else {
+            setPrefixMatches([]);
+        }
+    }, [prefixInput, completeWords]);
 
     // trie operations to traverse and animate visualizer
     const traverseTrie = (): TrieNodeData[] => {
@@ -155,6 +170,18 @@ export const TrieVisualizer = () => {
         }
     };
 
+    const handleDeleteKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleDelete();
+        }
+    };
+
+    const handleSearchKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleSearch("word");
+        }
+    }
+
     const handleInsert = (): void => {
         if (!inputWord.trim()) {
             setFeedbackMessage("Please enter a word to insert");
@@ -217,12 +244,12 @@ export const TrieVisualizer = () => {
 
     const handleSearch = (type: 'word' | 'prefix') => {
         // handle empty input
-        if (!inputWord.trim()) {
+        if (!searchInput.trim()) {
             setFeedbackMessage('Please enter a word to search');
             return;
         }
 
-        const trimmedInput = inputWord.trim().toLowerCase();
+        const trimmedInput = searchInput.trim().toLowerCase();
 
         // clear previous animations
         setActivePath([]);
@@ -273,17 +300,17 @@ export const TrieVisualizer = () => {
         }, 100);
 
 
-        setInputWord("");
+        setSearchInput("");
     };
 
     const handleDelete = () => {
         // handle empty input
-        if (!inputWord.trim()) {
+        if (!deleteInput.trim()) {
             setFeedbackMessage('Please enter a word to delete from Trie');
             return;
         }
 
-        const trimmedInput = inputWord.trim().toLowerCase();
+        const trimmedInput = deleteInput.trim().toLowerCase();
 
         // Check if it's actually a complete word we inserted
         if (!completeWords.has(trimmedInput)) {
@@ -373,7 +400,7 @@ export const TrieVisualizer = () => {
             });
         }, 100);
 
-        setInputWord("");
+        setDeleteInput("");
     };
 
     const handleReset = () => {
@@ -530,21 +557,69 @@ export const TrieVisualizer = () => {
 
                 {/* controls */}
                 <div className="controls">
-                    <input
-                        type="text"
-                        value={inputWord}
-                        onChange={(e) => setInputWord(e.target.value)}
-                        onKeyDown={handleKeyPress}
-                        placeholder="Enter a word"
-                    />
+                    {/* add word */}
+                    <div className="form-group">
+                        <label htmlFor="add-word" className="controls-label">Add Word:</label>
+                        <input
+                            name="add-word"
+                            type="text"
+                            value={inputWord}
+                            onChange={(e) => setInputWord(e.target.value)}
+                            onKeyDown={handleKeyPress}
+                            placeholder="Enter a word"
+                        />
+                    </div>
 
-                    {/* buttons */}
-                    <div className="button-group">
-                        <button onClick={() => handleInsert()}>Add Word</button>
-                        <button onClick={() => handleSearch('word')}>Search Word</button>
-                        <button onClick={() => handleSearch('prefix')}>Search prefix</button>
-                        <button onClick={() => handleDelete()}>Delete Word</button>
-                        <button onClick={() => handleReset()}>Reset Trie</button>
+                    {/* Search Prefix */}
+                    <div className="form-group">
+                        <label htmlFor="search-prefix">Search Prefix:</label>
+                        <input
+                            name="search-prefix"
+                            type="text"
+                            value={prefixInput}
+                            onChange={(e) => setPrefixInput(e.target.value)}
+                            placeholder="Type prefix (e.g., 's', 'sh')"
+                        />
+
+                        {/* render data */}
+                        <div className="prefix-matches">
+                            <div className="prefix-matches-stats"> Matches: {prefixMatches.length}</div>
+                            {prefixMatches.length === 0 && prefixInput ? (
+                                <span className="no-prefixes">Start typing to search...</span>
+                            ) : (
+                                <div className="match-found">
+                                    {prefixMatches.map(word => (
+                                        <span key={word} className="matched-word">{word}</span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Search section */}
+                    <div className="form-group">
+                        <label htmlFor="search-word">Search Word:</label>
+                        <input
+                            name="search-word"
+                            type="text"
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                            onKeyDown={handleSearchKeyPress}
+                            placeholder="Enter word to search"
+                        />
+                    </div>
+
+                    {/* delete section */}
+                    <div className="form-group">
+                        <label htmlFor="delete-word">Delete Word:</label>
+                        <input
+                            name="delete-word"
+                            type="text"
+                            value={deleteInput}
+                            onChange={(e) => setDeleteInput(e.target.value)}
+                            onKeyDown={handleDeleteKeyPress}
+                            placeholder="Enter a word to delete (press Enter)"
+                        />
                     </div>
                 </div>
 
@@ -557,8 +632,14 @@ export const TrieVisualizer = () => {
             </div>
 
             <div className="main-container">
-                <div className="header-box">
-                    <h2>Visual Representation</h2>
+                <div className="main-header">
+                    <div className="header-box">
+                        <h2>Visual Representation</h2>
+                    </div>
+
+                    <div className="button-group">
+                        <button onClick={() => handleReset()}>Reset Trie</button>
+                    </div>
                 </div>
                 {/* Visualize Tree */}
                 <div className="visualization">
