@@ -39,7 +39,8 @@
 
 .controls input:focus {
     outline: none;
-    border-color: #FF7043;
+    /* border-color: #FF7043; */
+    border-color: #c8102e;
     box-shadow: 0 0 0 4px rgba(255, 112, 67, 0.1);
     transform: translateY(-1px);
 }
@@ -62,7 +63,7 @@
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
-    background: linear-gradient(135deg, #FF7043 0%, #FF5722 100%);
+    background: linear-gradient(135deg, #C8102F 0%, #A00D26 100%);
     color: white;
     box-shadow: 0 4px 12px rgba(255, 112, 67, 0.3);
     font-family: inherit;
@@ -117,57 +118,31 @@
     border: 1px solid rgba(21, 101, 192, 0.2);
 }
 
-.controls button {
-    padding: 14px 28px;
-    font-size: 15px;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background: linear-gradient(135deg, #FF7043 0%, #FF5722 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(255, 112, 67, 0.3);
-    font-family: inherit;
-    letter-spacing: 0.3px;
-    width: 100%;
-}
-
-.controls button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(255, 112, 67, 0.4);
-}
-
-.controls button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 112, 67, 0.3);
-}
-
 .feedback {
-    background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    background: linear-gradient(135deg, #FFE5E9 0%, #FFCDD2 100%);
     padding: 12px 26px;
     border-radius: 8px;
     margin-bottom: 24px;
     font-size: 16px;
     font-weight: 500;
-    color: #E65100;
-    border-left: 4px solid #FF7043;
+    color: #C8102F;
+    border-left: 4px solid #C8102F;
     min-height: 28px;
-    box-shadow: 0 2px 8px rgba(255, 112, 67, 0.1);
+    box-shadow: 0 2px 8px rgba(200, 16, 47, 0.3);
 }
 
 .word-dictionary {
     background: white;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(200, 16, 47, 0.3);
     padding: 24px 32px;
     margin-bottom: 24px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(200, 16, 47, 0.2);
 }
 
 .word-dictionary h3 {
     margin: 0 0 16px 0;
-    color: #FF7043;
+    color: #c8102F;
     font-size: 18px;
     font-weight: 600;
 }
@@ -180,8 +155,9 @@
 }
 
 .dictionary-word {
-    background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
-    color: #E65100;
+    background: linear-gradient(135deg, #FFE5E9 0%, #FFD6DC 100%);
+    /* color: #E65100; */
+    color: #C8102F;
     padding: 8px 16px;
     border-radius: 16px;
     font-size: 14px;
@@ -214,7 +190,7 @@
 }
 
 .main-container .header-box h2 {
-    color: #FF7043;
+    color: #c8102F;
     margin: 0;
     font-size: 24px;
     font-weight: 600;

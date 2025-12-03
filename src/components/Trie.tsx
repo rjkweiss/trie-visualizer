@@ -478,8 +478,8 @@ export const TrieVisualizer = () => {
                                     y1={node.y}
                                     x2={child.x}
                                     y2={child.y}
-                                    stroke="black"
-                                    strokeWidth="2"
+                                    stroke="#004100"
+                                    strokeWidth="1.5"
                                 />
                             );
                         })
@@ -488,8 +488,12 @@ export const TrieVisualizer = () => {
                     {/* Render nodes (circles and text) */}
                     {nodes.map(node => {
                         // Determine node color based on state
-                        let fillColor = "#FFF3E0";
-                        let strokeColor = "black";
+                        let fillColor = "#FFF5F7";
+                        // let fillColor = "#FFEBEE"
+                        // let strokeColor = "#c8a900";
+                        // let strokeColor = "#A4804A"
+                        let strokeColor = "#E31837"
+                        let textColor = "black";
                         let strokeWidth = 2;
 
                         // check if this node represents a complete word the user inserted
@@ -501,8 +505,9 @@ export const TrieVisualizer = () => {
                         } else if (activePath.includes(node.id)) {
                             fillColor = "#FFAB91";
                         } else if (isRealCompleteWord) {
-                            fillColor = "#FF7043";
+                            fillColor = "#c8102e";
                             strokeWidth = 3;
+                            textColor = "white"
                         }
 
                         return (
@@ -524,6 +529,8 @@ export const TrieVisualizer = () => {
                                     textAnchor="middle"
                                     fontSize="14"
                                     fontWeight="bold"
+                                    fill={textColor}
+                                    // stroke={textColor}
                                 >
                                     {node.char}
                                 </text>
