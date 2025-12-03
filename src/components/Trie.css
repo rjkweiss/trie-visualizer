@@ -88,6 +88,42 @@
     box-shadow: 0 2px 8px rgba(255, 112, 67, 0.1);
 }
 
+.word-dictionary {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 24px 32px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.word-dictionary h3 {
+    margin: 0 0 16px 0;
+    color: #FF7043;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.word-dict-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 40px;
+}
+
+.dictionary-word {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    color: #E65100;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 112, 67, 0.2);
+    box-shadow: 0 2px 4px rgba(255, 112, 67, 0.1);
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
 .visualization {
     background: white;
     border-radius: 16px;

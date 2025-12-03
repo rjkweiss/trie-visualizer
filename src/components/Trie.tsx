@@ -536,6 +536,21 @@ export const TrieVisualizer = () => {
                 {feedbackMessage}
             </div>
 
+            <div className="word-dictionary">
+                <h3> Words in Trie ({completeWords.size})</h3>
+                <div className="word-dict-words">
+                    {completeWords.size === 0 ? (
+                        <span style={{ color: '#999', fontStyle: 'italic' }}>No words yet. Add some words to get started!</span>
+                    ):(
+                        Array.from(completeWords).sort().map(word => (
+                            <span className="dictionary-word">{word}</span>
+                        ))
+                    )}
+                </div>
+
+            </div>
+
+
             {/* Visualize Tree */}
             <div className="visualization">
                 {renderTrie()}
