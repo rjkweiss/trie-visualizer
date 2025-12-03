@@ -423,7 +423,7 @@ export const TrieVisualizer = () => {
         // center offset
 
         // Center offset
-        const offsetX = (svgWidth - (maxX - minX)) / 2  - minX;
+        const offsetX = (svgWidth - (maxX - minX)) / 2 - minX;
         const offsetY = -minY + 50;
 
         // create a map for quick lookup
@@ -511,49 +511,59 @@ export const TrieVisualizer = () => {
 
     return (
         <div className="trie-visualizer">
-            {/* control panel */}
-            <div className="controls">
-                <input
-                    type="text"
-                    value={inputWord}
-                    onChange={(e) => setInputWord(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    placeholder="Enter a word"
-                />
+            {/* left sidebar */}
+            <div className="side-bar">
+                {/* dictionary section */}
+                <div className="word-dictionary">
+                    <h3> Words in Trie ({completeWords.size})</h3>
+                    <div className="word-dict-words">
+                        {completeWords.size === 0 ? (
+                            <span style={{ color: '#999', fontStyle: 'italic' }}>No words yet. Add some words to get started!</span>
+                        ) : (
+                            Array.from(completeWords).sort().map(word => (
+                                <span className="dictionary-word">{word}</span>
+                            ))
+                        )}
+                    </div>
 
-                {/* buttons */}
-                <div className="button-group">
-                    <button onClick={() => handleInsert()}>Add Word</button>
-                    <button onClick={() => handleSearch('word')}>Search Word</button>
-                    <button onClick={() => handleSearch('prefix')}>Search prefix</button>
-                    <button onClick={() => handleDelete()}>Delete Word</button>
-                    <button onClick={() => handleReset()}>Reset</button>
-                </div>
-            </div>
-
-            {/* Display feedback message */}
-            <div className="feedback">
-                {feedbackMessage}
-            </div>
-
-            <div className="word-dictionary">
-                <h3> Words in Trie ({completeWords.size})</h3>
-                <div className="word-dict-words">
-                    {completeWords.size === 0 ? (
-                        <span style={{ color: '#999', fontStyle: 'italic' }}>No words yet. Add some words to get started!</span>
-                    ):(
-                        Array.from(completeWords).sort().map(word => (
-                            <span className="dictionary-word">{word}</span>
-                        ))
-                    )}
                 </div>
 
+                {/* controls */}
+                <div className="controls">
+                    <input
+                        type="text"
+                        value={inputWord}
+                        onChange={(e) => setInputWord(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                        placeholder="Enter a word"
+                    />
+
+                    {/* buttons */}
+                    <div className="button-group">
+                        <button onClick={() => handleInsert()}>Add Word</button>
+                        <button onClick={() => handleSearch('word')}>Search Word</button>
+                        <button onClick={() => handleSearch('prefix')}>Search prefix</button>
+                        <button onClick={() => handleDelete()}>Delete Word</button>
+                        <button onClick={() => handleReset()}>Reset Trie</button>
+                    </div>
+                </div>
+
+                {/* feedback message */}
+                {feedbackMessage && (
+                    <div className="feedback">
+                        {feedbackMessage}
+                    </div>
+                )}
             </div>
 
-
-            {/* Visualize Tree */}
-            <div className="visualization">
-                {renderTrie()}
+            <div className="main-container">
+                <div className="header-box">
+                    <h2>Visual Representation</h2>
+                </div>
+                {/* Visualize Tree */}
+                <div className="visualization">
+                    {renderTrie()}
+                </div>
             </div>
         </div>
     );
