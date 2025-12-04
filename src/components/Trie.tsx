@@ -19,8 +19,8 @@ export const TrieVisualizer = () => {
         const newTrie = new Trie();
 
         const starterWords = [
-            "Gas", "Garlic", "Globe", "glow", "Jane", "Jazz",
-            "Joke", "passive", "pale", "poke", "port"
+            "gas", "garlic", "globe", "glow", "jane", "jazz",
+            "joke", "passive", "pale", "poke", "port"
         ]
         starterWords.forEach(word => newTrie.insert(word));
         return newTrie;
@@ -39,8 +39,8 @@ export const TrieVisualizer = () => {
 
     const [completeWords, setCompleteWords] = useState<Set<string>>(new Set(
         [
-            "gas", "garlic", "globe", "glow", "jack", "jazz", "joke",
-            "passive", "pale", "poke", "port"
+            "gas", "garlic", "globe", "glow", "jane", "jazz",
+            "joke", "passive", "pale", "poke", "port"
         ]
     ));
     const [prefixMatches, setPrefixMatches] = useState<string[]>([]);
