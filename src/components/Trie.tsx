@@ -18,7 +18,10 @@ export const TrieVisualizer = () => {
     const [trie] = useState(() => {
         const newTrie = new Trie();
 
-        const starterWords = ["she", "sells", "seashells", "by", "the", "seashore"]
+        const starterWords = [
+            "Gas", "Garlic", "Globe", "glow", "Jane", "Jazz",
+            "Joke", "passive", "pale", "poke", "port"
+        ]
         starterWords.forEach(word => newTrie.insert(word));
         return newTrie;
     });
@@ -34,7 +37,12 @@ export const TrieVisualizer = () => {
     const [activePath, setActivePath] = useState<string[]>([]);       // green path
     const [_animationType, setAnimationType] = useState<'insert' | 'search' | 'delete' | null>(null);
 
-    const [completeWords, setCompleteWords] = useState<Set<string>>(new Set(["she", "sells", "seashells", "by", "the", "seashore"]));
+    const [completeWords, setCompleteWords] = useState<Set<string>>(new Set(
+        [
+            "gas", "garlic", "globe", "glow", "jack", "jazz", "joke",
+            "passive", "pale", "poke", "port"
+        ]
+    ));
     const [prefixMatches, setPrefixMatches] = useState<string[]>([]);
 
     useEffect(() => {
